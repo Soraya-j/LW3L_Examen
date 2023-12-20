@@ -6,73 +6,29 @@
     <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 <body>
-    <h1>Test Yourself</h1>
-    <h2>How do you say </h2>
-    <h3> <%= result %> </h3>
-    <%= mots.Mots %>
-    <!-- <h1>Tv list</h1>
-
-    <form class="formadd" action="/add" method="POST">
-        <input name="Marque" placeholder="Brand"/>
-        <input name="Prix" placeholder="Price"/>
-        <input name="Taille" placeholder="Height"/>
-        <input type="submit" value="Ajouter une télévision"/>
-    </form>
-
-    <h2>WishList</h2>
+    <h1>Liste du vocabulaire enregistré</h1>
     <table>
         <tr>
-            <th>Brand</th>
-            <th>Price</th>
-            <th>Height</th>
-            <th>Bought</th>
-            <th>Broke</th>
-            <th>Cause</th>
+            <th>Mes Mots</th>
+            <th>Traduction</th>
         </tr>
-        <% for(tele of wishlist) { %>
-        <tr>    
-            <td><%= tele.Marque %></td>
-            <td><%= tele.Prix %></td>
-            <td><%= tele.Taille %></td>
-            <td><%= tele.Achetée %></td>
-            <td><%= tele.Cassée %></td>
-            <td><%= tele.Cause %></td>
-            <td><form action="/buy" method="post">
-                <input type="hidden" name="idtv" value="<%= tele.id %>">
-                <input type="submit" value="Achat"/>
-            </form></td>
+        <tr><% for(mots of list) { %>
+            <td><%=(mots.monMot)%></td>
+            <td><%=(mots.Traduction)%></td>
+            <td><form action="/delete" method="post">
+                <input type="hidden" name="idmot" value="<%= mots.id %>">
+                <input type="submit" value="Delete"/>
+            </form></td> 
         </tr>
-        <% } %>
+        <%}%>
     </table>
-
-
-    <h2>Possession</h2>
-    <table>
-        <tr>
-            <th>Brand</th>
-            <th>Price</th>
-            <th>Height</th>
-            <th>Bought</th>
-            <th>Broke</th>
-            <th>Cause</th>
-        </tr>
-        <% for(tele of have) { %>
-        <tr>    
-            <td><%= tele.Marque %></td>
-            <td><%= tele.Prix %></td>
-            <td><%= tele.Taille %></td>
-            <td><%= tele.Achetée %></td>
-            <td><%= tele.Cassée %></td>
-            <td><%= tele.Cause %></td>
-            <td><form action="/broke" method="post">
-                <input name="Cause" placeholder="Expliquer la casse"/>
-                <input type="hidden" name="idtv" value="<%= tele.id %>">
-                <input type="submit" value="Cassée"/>
-            </form></td>
-        </tr>
-        <% } %>
-    </table>
-    <h3>Somme totale dépensée :</h3> 
-    <p><%= sum %>$</p> -->
+    <h2>Ajouter de nouveau mots de vocabulaire</h2>
+    <p><form class="add" action="/add" method="POST">
+        Le mot : 
+        <input name="addMot" placeholder="Votre mot">
+        La traduction : 
+        <input name="addTrad" placeholder="La traduction">
+        <input type="submit" value="Ajouter"/>
+    </form></p>
 </body>
 </html>

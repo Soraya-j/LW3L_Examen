@@ -147,6 +147,9 @@ export default class Model {
   static async loadMany(where = {}) {
     return await query(`SELECT * FROM ${this.table}`, {}, where);
   }
+  static async loadRandom(where = {}) {
+    return await query(`SELECT monMot FROM ${this.table} ORDER BY RAND() LIMIT 1`, {}, where);
+  }
 
   /**
    * Save (INSERT/UPDATE) the record in the database

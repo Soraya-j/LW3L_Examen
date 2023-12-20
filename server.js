@@ -1,26 +1,51 @@
 import express from 'express';
 import mots from './models/Voc.js';
 
+
 const app = express();
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }));
 
 app.get('/', async function(req,res){
-    connection.query("SELECT monMot FROM mots ORDER BY RAND() LIMIT 1",function(result){
-        console.log("affichage d'un mot");
-        console.log(result);
-        response.render('VocList.ejs', {result: result});
-    })
-    //const MotsVoc = await mots.loadMany(monMot)
-    //const have = await tele.loadMany({Achete : 1})
-    //let sum = 0;
-//     for(let i = 0;i<have.length ;i++){
-//         sum = sum + have[i].Prix;
-//     };
-    //res.render('VocList.ejs', {MotsVoc});
+    const MotsVoc = await mots.loadRandom()
+    res.render('VocTest.ejs', {MotsVoc, successMessage: null, errorMessage: null});
 });
 
-// app.post("/add", async function (req, res) {
+app.post("/answer", async function (req, res) {
+    const load = await mots.load()
+    console.log(req.body.trad)
+    if (load.Traduction == req.body.trad){
+        console.log('match')
+        const MotsVoc = await mots.loadRandom()
+        res.render('VocTest.ejs', {MotsVoc, successMessage: 'Match', errorMessage: null });
+    }
+    else {
+        const MotsVoc = await mots.loadRandom()
+        res.render('VocTest.ejs', {MotsVoc, successMessage: null , errorMessage: 'Malheureusement vous êtes nul' });
+    }
+});
+
+app.post('/list', async function(req,res){
+    const list = await mots.loadMany()
+    res.render('VocList.ejs', {list})
+
+});
+
+app.post('/delete', async function(req,res){
+    const mot  = await mots.load({id : req.body.idmot})
+    mots.delete(mot);
+    res.redirect('/')
+});
+
+app.post('/add', async function(req,res){
+    const mot = new mots();
+    mot.monMot = req.body.addMot;
+    mot.Traduction = req.body.addTrad;
+    console.log(mot)
+    await mot.save();
+    res.redirect('/');
+})
+    
 //   const tv = new tele();
 //   tv.Marque = req.body.Marque;
 //   tv.Prix = parseInt(req.body.Prix);
@@ -46,6 +71,6 @@ app.get('/', async function(req,res){
 //     res.redirect('/');
 // });
 
-app.listen(80, () => {
+app.listen(3000, () => {
     console.log('Server is running on port 80');
 });

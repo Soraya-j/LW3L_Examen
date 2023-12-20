@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo List</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+    <h1>Test Yourself</h1>
+    <h2>How do you say     
+    <% for(mots of MotsVoc) { %>
+        <%=(mots.monMot)%>
+        <%}%></h2>
+    
+    <h3>Your Answer : </h3>
+    <form class="answer" action="/answer" method="POST">
+        <input name="trad" placeholder="Translation">
+        <input type="submit" value="Validate"/>
+    </form>
+    <% if (successMessage) { %>
+        <p><%= successMessage %></p>
+    <% } %>
+
+    <% if (errorMessage) { %>
+        <p><%= errorMessage %></p>
+    <% } %>
+
+    <form action="/list" method="post">
+        <input type="submit" value="list of my vocabulary">
+    </form>
+    <!-- <h1>Tv list</h1>
+
+    <form class="formadd" action="/add" method="POST">
+        <input name="Marque" placeholder="Brand"/>
+        <input name="Prix" placeholder="Price"/>
+        <input name="Taille" placeholder="Height"/>
+        <input type="submit" value="Ajouter une télévision"/>
+    </form>
+
+    <h2>WishList</h2>
+    <table>
+        <tr>
+            <th>Brand</th>
+            <th>Price</th>
+            <th>Height</th>
+            <th>Bought</th>
+            <th>Broke</th>
+            <th>Cause</th>
+        </tr>
+        </td>
+            <td><form action="/buy" method="post">
+                <input type="hidden" name="idtv" value="">
+                <input type="submit" value="Achat"/>
+            </form></td>
+        </tr>
+        
+    </table>
+
+
+    <h2>Possession</h2>
+    <table>
+        <tr>
+            <th>Brand</th>
+            <th>Price</th>
+            <th>Height</th>
+            <th>Bought</th>
+            <th>Broke</th>
+            <th>Cause</th>
+        </tr>
+        
+        <tr>    
+           
+            <td><form action="/broke" method="post">
+                <input name="Cause" placeholder="Expliquer la casse"/>
+                <input type="hidden" name="idtv" value="">
+                <input type="submit" value="Cassée"/>
+            </form></td>
+        </tr>
+  
+    </table>
+    <h3>Somme totale dépensée :</h3> 
+  
+</body>
+</html>
