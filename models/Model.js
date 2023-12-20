@@ -139,6 +139,15 @@ export default class Model {
     return record;
   }
 
+   /**
+    *  @param {Payload} where
+    *  @return {Promise<Payload>}
+    */
+  static async loadRandom(where = {}) {
+  return await query(`SELECT monMot FROM ${this.table} ORDER BY RAND() LIMIT 1`, {}, where);
+  }
+
+
   /**
    * Load records from the database
    * @param {Payload} where - Object to narrow the select query
@@ -147,9 +156,7 @@ export default class Model {
   static async loadMany(where = {}) {
     return await query(`SELECT * FROM ${this.table}`, {}, where);
   }
-  static async loadRandom(where = {}) {
-    return await query(`SELECT monMot FROM ${this.table} ORDER BY RAND() LIMIT 1`, {}, where);
-  }
+
 
   /**
    * Save (INSERT/UPDATE) the record in the database

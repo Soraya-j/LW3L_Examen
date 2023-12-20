@@ -1,12 +1,14 @@
 import express from 'express';
 import mots from './models/Voc.js';
 
-
+// static async loadRandom(where = {}) {
+//     return await query(`SELECT monMot FROM ${this.table} ORDER BY RAND() LIMIT 1`, {}, where);
+//   }
 const app = express();
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }));
 
-app.get('/', async function(req,res){
+app.post('/', async function(req,res){
     const MotsVoc = await mots.loadRandom()
     res.render('VocTest.ejs', {MotsVoc, successMessage: null, errorMessage: null});
 });
@@ -28,7 +30,6 @@ app.post("/answer", async function (req, res) {
 app.post('/list', async function(req,res){
     const list = await mots.loadMany()
     res.render('VocList.ejs', {list})
-
 });
 
 app.post('/delete', async function(req,res){
@@ -44,7 +45,8 @@ app.post('/add', async function(req,res){
     console.log(mot)
     await mot.save();
     res.redirect('/');
-})
+});
+
     
 //   const tv = new tele();
 //   tv.Marque = req.body.Marque;
