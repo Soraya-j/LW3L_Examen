@@ -8,7 +8,7 @@ const app = express();
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }));
 
-app.post('/', async function(req,res){
+app.get('/', async function(req,res){
     const MotsVoc = await mots.loadRandom()
     res.render('VocTest.ejs', {MotsVoc, successMessage: null, errorMessage: null});
 });
